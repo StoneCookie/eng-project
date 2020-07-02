@@ -1,0 +1,151 @@
+.foo
+	display: flex
+	flex-direction: column
+	justify-content: center
+	align-items: center
+	min-height: 270px
+	&-text
+		color: map-get($colors, card)
+		display: flex
+		flex-direction: column
+		align-items: center
+		font-size: 1.1rem
+
+	&-list
+		display: grid
+		grid-template-columns: 1fr 1fr 1fr 1fr
+		grid-gap: 10px
+		&__ico
+			fill: map-get($colors, additional)
+			transition: .3s
+
+		&__item:hover &__ico
+			fill: lighten(map-get($colors, additional), 10%);
+			transition: .3s
+
+@media (max-width: 1215px)
+	.account
+		position: relative
+		background: inherit
+		z-index: 5
+
+	.header
+		padding-bottom: 0!important
+		&__inner
+			background: inherit
+			margin-bottom: 0
+			z-index: 5
+		&__nav
+			background: map-get($colors, content)
+			position: absolute
+			flex-direction: column
+			justify-content: space-around
+			transform: translateY(-100%)
+			overflow-y: auto
+			border-radius: 0
+			transition: .5s
+			height: 100vh
+			width: 100%
+			z-index: 1
+			top: 56px
+		&__link
+			width: 100%
+			padding: 7px
+			text-align: center
+
+	.burger
+		display: flex
+		justify-content: center
+		align-items: center
+
+	.main
+		margin-top: 15px
+
+	.search
+		height: 40px
+		width: 40px
+		&__input
+			height: 0
+			position: absolute
+			top: 56px
+			transition: .3s
+			left: 0
+			border: 10px solid map-get($colors, main)
+			border-left: 0
+			border-right: 0
+			max-width: 100%
+			border-radius: 0
+		&__btn
+			background: none
+			border: 2px solid map-get($colors, main)
+			min-width: 40px
+			width: 40px
+			height: 100%
+			border-radius: 50%
+			svg
+				width: 50%
+
+			&:hover
+				border: 2px solid map-get($colors, additional)
+				background: none
+				transition: .3s
+		&_active
+			.search__btn
+				background: lighten(map-get($colors, additional), 10%)
+				border: 2px solid map-get($colors, additional)
+				&:hover
+					background: lighten(map-get($colors, additional), 10%)
+					transition: .3s
+			& .search__input
+				height: 100%
+				transition: .3s
+
+.on
+	transform: translate(0%)
+	&:hover span,
+	&:hover:after
+		background: map-get($colors, additional)
+
+	span
+		transform-origin: center
+		transform: rotate(42deg)
+		transition: .3s
+
+	&:after
+		transform-origin: center
+		transform: rotate(-42deg)
+		transition: .3s
+
+.modal
+	&-header
+		padding-left: 0
+		padding-right: 0
+		border: 0
+	&-footer
+		border: 0
+.nav
+	&-tabs
+		width: 100%
+		padding-left: 16px
+	&-item .active
+		color: map-get($colors, additional)!important
+	&-link
+		color: map-get($colors, main)
+		transition: .3s
+		&:hover,
+			color: map-get($colors, additional)
+.close
+	margin: -1rem 0 0 auto!important
+	outline: none!important
+	padding-top: 17px!important
+	opacity: .75!important
+	border-bottom: 1px solid #dee2e6!important
+	&:hover span
+		opacity: .5!important
+.modal
+	background: map-get($colors, bg_modal)
+	&-content
+		box-shadow: 10px 10px 0 map-get($colors, main)
+	&__btn
+		background: map-get($colors, additional)
+		color: map-get($colors, card)

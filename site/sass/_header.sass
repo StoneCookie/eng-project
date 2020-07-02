@@ -24,11 +24,11 @@ body
 
 .header
 	position: sticky
-	overflow: hidden
 	background: inherit
 	top: 0
 	&__inner
 		display: flex
+		position: relative
 		justify-content: space-between
 		align-items: center
 		margin-bottom: 10px
@@ -51,6 +51,29 @@ body
 			background: map-get($colors, additional)
 			color: map-get($colors, card)
 			transition: .3s
+
+.burger
+	position: relative
+	display: none
+	cursor: pointer
+	height: 40px
+	width: 40px
+	span, &::after
+		content: ''
+		background: map-get($colors, card)
+		position: absolute
+		display: block
+		height: 2.4px
+		width: 25px
+	span
+		transform: translateY(5px)
+		transform-origin: center
+		transition: .3s
+
+	&::after
+		transform: translateY(-5px)
+		transform-origin: center
+		transition: .3s
 
 .search
 	display: flex
@@ -75,6 +98,7 @@ body
 		display: flex
 		justify-content: center
 		align-items: center
+		outline: none!important
 		border-radius: 0 20px 20px 0
 		width: 65px
 		height: 100%
@@ -84,5 +108,5 @@ body
 			fill: map-get($colors, card)
 
 		&:hover
-			background: scale-color(map-get($colors, additional), $lightness: 20%);
+			background: lighten(map-get($colors, additional), 10%)
 			transition: .3s
