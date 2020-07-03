@@ -4,9 +4,9 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="icon" href="imgs/ico/db-favicon.png" type="image/png">
-	<link rel="stylesheet" href="libs/css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/main.css">
+	<link rel="icon" href="../imgs/ico/db-favicon.png" type="image/png">
+	<link rel="stylesheet" href="../libs/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/main.css">
 	<title>Daily Bugle</title>
 </head>
 
@@ -83,11 +83,25 @@
 
 	<!-- ОСНОВНОЙ КОНТЕНТ -->
 	<main class="main">
-		<h2 class="main__title mb-2">Новости</h2>
+		<div class="main-inner mb-2">
+			<h2 class="main-inner__title">Экономика</h2>
+
+			<!-- Эта кнопочка для НЕ подписавшихся -->
+			<button type="button" class="main-inner__btn">
+				<span class="main-inner__btn_disable">Подписаться</span>
+				<img src="../imgs/ico/sub.svg" alt="" class="main-inner__img">
+			</button>
+
+			<!-- Эта кнопочка для подписавшихся -->
+			<button type="button" class="main-inner__btn">
+				<span class="main-inner__btn_disable">Отписаться</span>
+				<img src="../imgs/ico/unsub.svg" alt="" class="main-inner__img">
+			</button>
+		</div>
 		<section class="content">
 			<!-- НОВОСТНАЯ КАРТОЧКА -->
-			<a class="content__item" href="includes/article.html">
-				<img class="content__img" src="imgs/content/businessman.jpg" alt="Бизнесмен">
+			<a class="content__item" href="#">
+				<img class="content__img" src="../imgs/content/businessman.jpg" alt="Бизнесмен">
 				<div class="content__info">
 					<div class="content__inner">
 						<span class="content__topic">ЭКОНОМИКА</span>
@@ -99,31 +113,7 @@
 			</a>
 			<!-- НОВОСТНАЯ КАРТОЧКА -->
 			<a class="content__item" href="#">
-				<img class="content__img" src="imgs/content/businessman.jpg" alt="Бизнесмен">
-				<div class="content__info">
-					<div class="content__inner">
-						<span class="content__topic">ЭКОНОМИКА</span>
-						<h3 class="content__title">Всегда на связи</h3>
-						<p class="content__text">Как управлять бизнесом на расстоянии и избежать проблем</p>
-					</div>
-					<span class="content__date">ДАТА</span>
-				</div>
-			</a>
-			<!-- НОВОСТНАЯ КАРТОЧКА -->
-			<a class="content__item" href="#">
-				<img class="content__img" src="imgs/content/businessman.jpg" alt="Бизнесмен">
-				<div class="content__info">
-					<div class="content__inner">
-						<span class="content__topic">ЭКОНОМИКА</span>
-						<h3 class="content__title">Всегда на связи</h3>
-						<p class="content__text">Как управлять бизнесом на расстоянии и избежать проблем</p>
-					</div>
-					<span class="content__date">ДАТА</span>
-				</div>
-			</a>
-			<!-- НОВОСТНАЯ КАРТОЧКА -->
-			<a class="content__item" href="#">
-				<img class="content__img" src="imgs/content/businessman.jpg" alt="Бизнесмен">
+				<img class="content__img" src="../imgs/content/businessman.jpg" alt="Бизнесмен">
 				<div class="content__info">
 					<div class="content__inner">
 						<span class="content__topic">ЭКОНОМИКА</span>
@@ -196,7 +186,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<ul class="nav nav-tabs" role="tablist">
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
 						<li class="nav-item">
 							<a class="nav-link" data-toggle="tab" href="#page-in" role="tab">Вход</a>
 						</li>
@@ -209,7 +199,7 @@
 					</button>
 				</div>
 				<div class="modal-body pt-1">
-					<div class="tab-content">
+					<div class="tab-content" id="myTabContent">
 
 						<!-- ФОРМА АВТОРИЗАЦИИ -->
 						<div class="tab-pane fade" id="page-in" role="tabpanel">
@@ -269,9 +259,9 @@
 		</div>
 	</div>
 
-	<script src="libs/js/jquery-3.5.1.min.js"></script>
-	<script src="libs/js/bootstrap.min.js"></script>
-	<script src="js/main.js"></script>
+	<script src="../libs/js/jquery-3.5.1.min.js"></script>
+	<script src="../libs/js/bootstrap.min.js"></script>
+	<script src="../js/main.js"></script>
 </body>
 
 </html>

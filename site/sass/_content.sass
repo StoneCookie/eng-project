@@ -1,13 +1,34 @@
 .main
 	background: map-get($colors, content)
 	color: 	map-get($colors, card)
+	position: relative
+	flex: 1 0 auto
 	border-radius: 20px
 	padding: 30px 5%
+	padding-top: 45px
+	&-inner
+		display: flex
+		align-items: center
+		font-size: 1.1rem
+		&__img
+			max-width: 30px
+			max-height: 30px
+			display: none
+		&__btn
+			color: map-get($colors, card)
+			outline: none!important
+			border-radius: 10px
+			padding: 3px 10px
+			margin-left: 10px
+			&:first-of-type
+				background: map-get($colors, info)
+			&:last-of-type
+				background: map-get($colors, delete)
 
 .content
 	display: grid
 	justify-content: center
-	grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
+	grid-template-columns: repeat(auto-fit, minmax(200px, 300px))
 	grid-gap: 50px
 
 	&__item
@@ -29,7 +50,7 @@
 		&:hover
 			border: 2px solid map-get($colors, additional)
 			transition: .3s
-			color: lighten(map-get($colors, content), 15%);
+			color: lighten(map-get($colors, content), 15%)
 
 
 	&__info
@@ -58,3 +79,101 @@
 	&__date
 		color: map-get($colors, info)
 		font-weight: 700
+
+.article
+	display: flex
+	flex-direction: column
+	justify-content: center
+	align-items: center
+	&__inner
+		color: map-get($colors, info)
+		display: flex
+		flex-direction: column
+		align-items: start
+		margin-top: 10px
+		margin-bottom: 50px
+	&__img
+		max-width: 600px
+		max-height: 400px
+		width: 100%
+		height: 100%
+		object-fit: cover
+	&__text
+		width: 70%
+
+.profile
+	&__list
+		width: min-content
+		counter-reset: item
+		line-height: 2rem
+
+	&__item
+		display: flex
+		justify-content: space-between
+		&::before
+			content: ''
+			counter-increment: item
+			content: counter(item) '.'
+	&__link
+		transition: .3s
+		&:hover
+			transition: .3s
+			color: map-get($colors, delete)
+
+.folow
+	display: flex
+	flex-wrap: wrap
+	&__admin
+		background: map-get($colors, info)
+		color: map-get($colors, card)
+		border-radius: 10px
+		padding: 4px 10px
+		margin: 10px 0
+		margin-left: 10px
+		transition: .3s
+		&:hover
+			transition: .3s
+			color: #000
+	&_anchor
+		flex-direction: column
+		justify-content: center
+		position: fixed
+		right: 1%
+		border-radius: 20px
+		z-index: 5
+		background: map-get($colors, content)
+		transform: translate(0, -50%)
+		transition: .3s
+		.folow__admin
+			margin-right: 10px
+
+
+.table
+	thead th
+		position: sticky
+		top: 118px
+	td, tbody th
+		background: lighten(map-get($colors, bg_modal), 11%)
+		border: 0!important
+	th
+		background: map-get($colors, info)
+		border: 0!important
+
+.news
+	&-description
+		height: 300px!important
+		resize: none
+	&-submit
+		background: map-get($colors, info)
+		color: #fff
+		&:hover
+			color: #fff
+	&-photo-label
+		border: 0
+		z-index: 2
+		overflow: hidden
+		&::after
+			background: map-get($colors, additional)
+			color: #fff
+			height: 100%
+			cursor: pointer
