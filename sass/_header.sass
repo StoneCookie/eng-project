@@ -33,7 +33,7 @@ body
 	position: sticky
 	background: inherit
 	top: 0
-	z-index: 2
+	z-index: 3
 	&__inner
 		display: flex
 		position: relative
@@ -55,10 +55,18 @@ body
 		padding: 2px 10px
 		border-radius: 10px
 		transition: .3s
+		border: 2px solid map-get($colors, content)
 		&:hover
-			background: map-get($colors, additional)
 			color: map-get($colors, card)
+			border: 2px solid map-get($colors, additional)
 			transition: .3s
+		&_active
+			background: map-get($colors, additional)
+			transition: .3s
+			&:hover
+				background: lighten(map-get($colors, additional), 10%)
+				transition: .3s
+
 
 .burger
 	position: relative

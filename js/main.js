@@ -8,6 +8,16 @@ $(function () {
 			else
 				return 'auto';
 		});
+		$('.header__nav').css('height', function (index) {
+			let windowHeight = $(window).height();
+			let scrollTop = $(window).scrollTop();
+			let headerHeight =  $('header').outerHeight();
+			let accountHeight =  $('.account').outerHeight();
+			if (scrollTop < accountHeight)
+				return windowHeight - headerHeight - accountHeight + scrollTop
+			else
+				return windowHeight - headerHeight
+		});
 	});
 	$('a[href^="#"]').click(function () {
 		let headerHeight = $('header').outerHeight();
