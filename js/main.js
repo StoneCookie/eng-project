@@ -8,6 +8,10 @@ $(function () {
 			else
 				return 'auto';
 		});
+		$(window).resize(function () {
+			if ($(window).width() >= 1215)
+				$('.header__nav').css('height', 'auto')
+		});
 		$('.header__nav').css('height', function (index) {
 			let windowHeight = $(window).height();
 			let scrollTop = $(window).scrollTop();
