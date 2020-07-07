@@ -20,10 +20,15 @@
 			border-radius: 10px
 			padding: 3px 10px
 			margin-left: 10px
-			&:first-of-type
+			&_edit
 				background: map-get($colors, info)
-			&:last-of-type
+				transition: .3s
+			&_del
 				background: map-get($colors, delete)
+				transition: .3s
+			&:hover
+				color: map-get($colors, logo)
+				transition: .3s
 
 .content
 	display: grid
@@ -39,7 +44,7 @@
 		flex-direction: column
 		border-radius: 20px
 		max-width: 330px
-		height: 435px
+		min-height: 435px
 		transition: .3s
 		border: 2px solid
 		>img
@@ -57,7 +62,7 @@
 		display: flex
 		flex-direction: column
 		justify-content: space-between
-		height: 100%
+		flex: 1
 		padding: 15px
 
 	&__inner
@@ -102,6 +107,7 @@
 		width: 70%
 
 .profile
+	width: 100%
 	&__list
 		width: min-content
 		counter-reset: item
@@ -149,14 +155,12 @@
 
 
 .table
-	thead th
-		position: sticky
-		top: 118px
-	td, tbody th
+	td
 		background: lighten(map-get($colors, bg_modal), 11%)
 		border: 0!important
 	th
 		background: map-get($colors, info)
+		color: map-get($colors, card)
 		border: 0!important
 
 .news

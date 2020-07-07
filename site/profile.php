@@ -1,10 +1,17 @@
+<?php
+	session_start();
+	require_once "php/includes/connect.php";
+	if(!isset($_SESSION["user"])){
+		header("Location: index.php");
+	}
+?>
 <!DOCTYPE html>
 <html lang="ru">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="icon" href="imgs/ico/db-favicon.png" type="image/png">
+	<link rel="icon" href="/php/files/ico/db-favicon.png" type="image/png">
 	<link rel="stylesheet" href="libs/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/main.css">
 	<title>Daily Bugle</title>
@@ -14,21 +21,31 @@
 
 	<!-- БЛОК АККАУНТА -->
 	<div class="account pt-3">
-		<div class="account__inner">
+		<div class="account__inner <?php
+															if(isset($_SESSION['user'])){
+																echo "d-none";
+															}
+														?>">
 			<a data-toggle="modal" class="account__link" data-backdrop="static" data-keyboard="false"
 				href="#modal-window">ВОЙТИ</a>
 			<a data-toggle="modal" class="account__link" data-backdrop="static" data-keyboard="false"
 				href="#modal-window">РЕГИСТРАЦИЯ</a>
 		</div>
-		<div class="account__inner d-none">
-			<a class="account__link" href="#">
-				<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+
+		<div class="account__inner <?php
+															if(!isset($_SESSION['user'])){
+																echo "d-none";
+															}
+														?>">
+			<a class="account__link" href="/profile.php">
+				<svg width="35" height="35" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path
 						d="M39.9741 38.965L38.9741 34.965C38.4996 33.0245 37.0612 31.464 35.1657 30.8334L27.8324 28.39C26.044 27.645 25.2257 24.765 25.049 23.6716C26.4117 22.5385 27.2885 20.9263 27.499 19.1666C27.4689 18.8661 27.5399 18.5641 27.7006 18.3083C27.9605 18.2432 28.1732 18.0571 28.2723 17.8083C28.7521 16.6464 29.0533 15.4186 29.1656 14.1666C29.1659 14.0986 29.1575 14.0309 29.1406 13.965C29.0213 13.4785 28.7353 13.0492 28.3323 12.7516V8.33328C28.3323 5.64828 27.5123 4.54664 26.6489 3.90828C26.4841 2.615 25.0991 0 19.9991 0C15.4743 0.182187 11.8479 3.80859 11.6657 8.33336V12.7517C11.2628 13.0493 10.9767 13.4786 10.8574 13.9651C10.8405 14.0309 10.8321 14.0988 10.8324 14.1667C10.9446 15.4193 11.2457 16.6477 11.7257 17.8101C11.7979 18.0456 11.9872 18.2268 12.2257 18.2884C12.3191 18.3351 12.4941 18.5768 12.4941 19.1668C12.7059 20.9315 13.5878 22.5473 14.9574 23.6802C14.7824 24.7718 13.9691 27.6502 12.2308 28.3768L4.83244 30.8334C2.93846 31.464 1.50096 33.023 1.0258 34.9618L0.0258021 38.9618C-0.087401 39.4079 0.182443 39.8613 0.628537 39.9745C0.695177 39.9915 0.763693 40.0001 0.832443 40.0002H39.1658C39.626 40 39.999 39.6268 39.9989 39.1666C39.9988 39.0985 39.9905 39.0309 39.9741 38.965Z"
 						fill="#7289DA" />
 				</svg>
 			</a>
-			<a class="account__link" href="#">ВЫЙТИ</a>
+			<a class="account__link" href="/php/includes/logout.php">ВЫЙТИ</a>
 		</div>
 	</div>
 
@@ -43,10 +60,10 @@
 			</div>
 
 			<!-- ЛОГОТИП -->
-			<h1 class="header__logo"><a href="#" class="text-white"><span>Daily Bugle</span></a></h1>
+			<h1 class="header__logo"><a href="/" class="text-white"><span>Daily Bugle</span></a></h1>
 
 			<!-- БЛОК ПОИСКА -->
-			<div class="search-wrap">
+			<div class="search-wrap" style="<?php if($_GET['type'] == '' ) echo 'height: 0; overflow: hidden;'?>">
 				<form action="#" class="search">
 					<input class="search__input pl-3" placeholder="ПОИСК" type="text">
 					<button class="search__btn" type="submit">
@@ -56,91 +73,41 @@
 						</svg>
 					</button>
 				</form>
-				<button class="search-wrap__btn search__btn_disable"><svg width="25" height="25" viewBox="0 0 25 25"
-						xmlns="http://www.w3.org/2000/svg">
-						<path
-							d="M18.3463 16.1377C19.5766 14.4577 20.3124 12.3941 20.3124 10.1571C20.3124 4.55716 15.7561 0.00088501 10.1562 0.00088501C4.55623 0.00088501 0 4.55716 0 10.1571C0 15.7571 4.55628 20.3133 10.1562 20.3133C12.3933 20.3133 14.457 19.5774 16.137 18.3472L22.7905 25.0007L25 22.7913C25 22.7912 18.3463 16.1377 18.3463 16.1377ZM10.1562 17.1883C6.27897 17.1883 3.12501 14.0344 3.12501 10.1571C3.12501 6.27986 6.27897 3.1259 10.1562 3.1259C14.0335 3.1259 17.1874 6.27986 17.1874 10.1571C17.1874 14.0344 14.0334 17.1883 10.1562 17.1883Z" />
-					</svg>
-				</button>
+				<button class="search-wrap__btn search__btn_disable"><svg width="25" height="25" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M18.3463 16.1377C19.5766 14.4577 20.3124 12.3941 20.3124 10.1571C20.3124 4.55716 15.7561 0.00088501 10.1562 0.00088501C4.55623 0.00088501 0 4.55716 0 10.1571C0 15.7571 4.55628 20.3133 10.1562 20.3133C12.3933 20.3133 14.457 19.5774 16.137 18.3472L22.7905 25.0007L25 22.7913C25 22.7912 18.3463 16.1377 18.3463 16.1377ZM10.1562 17.1883C6.27897 17.1883 3.12501 14.0344 3.12501 10.1571C3.12501 6.27986 6.27897 3.1259 10.1562 3.1259C14.0335 3.1259 17.1874 6.27986 17.1874 10.1571C17.1874 14.0344 14.0334 17.1883 10.1562 17.1883Z" />
+				</svg></button>
 			</div>
 		</div>
 
 		<!-- НАВИГАЦИЯ -->
-		<nav class="header__nav px-4 py-2">
-			<a class="header__link" href="#">НОВОСТИ</a>
-			<a class="header__link" href="#">ИСТОРИЯ</a>
-			<a class="header__link" href="#">ИСКУССТВО</a>
-			<a class="header__link" href="#">ТЕХНОЛОГИИ</a>
-			<a class="header__link" href="#">СПОРТ</a>
-			<a class="header__link" href="#">МОДА</a>
-			<a class="header__link" href="#">ПУТЕШЕСТВИЯ</a>
-			<a class="header__link" href="#">ПОЛИТИКА</a>
-			<a class="header__link" href="#">ЭКОНОМИКА</a>
-			<a class="header__link" href="#">МУЗЫКА</a>
-			<a class="header__link" href="#">КИНО</a>
-		</nav>
+		<?php
+			include_once "php/urls/menu-profile.php"
+		?>
 	</header>
 
 	<!-- ОСНОВНОЙ КОНТЕНТ -->
 	<main class="main">
-		<h2 class="main__title mb-2">Новости</h2>
-		<section class="content">
-			<!-- НОВОСТНАЯ КАРТОЧКА -->
-			<a class="content__item" href="includes/article.html">
-				<img class="content__img" src="imgs/content/businessman.jpg" alt="Бизнесмен">
-				<div class="content__info">
-					<div class="content__inner">
-						<span class="content__topic">ЭКОНОМИКА</span>
-						<h3 class="content__title">Всегда на связи</h3>
-						<p class="content__text">Как управлять бизнесом на расстоянии и избежать проблем</p>
-					</div>
-					<span class="content__date">ДАТА</span>
-				</div>
-			</a>
-			<!-- НОВОСТНАЯ КАРТОЧКА -->
-			<a class="content__item" href="#">
-				<img class="content__img" src="imgs/content/businessman.jpg" alt="Бизнесмен">
-				<div class="content__info">
-					<div class="content__inner">
-						<span class="content__topic">ЭКОНОМИКА</span>
-						<h3 class="content__title">Всегда на связи</h3>
-						<p class="content__text">Как управлять бизнесом на расстоянии и избежать проблем</p>
-					</div>
-					<span class="content__date">ДАТА</span>
-				</div>
-			</a>
-			<!-- НОВОСТНАЯ КАРТОЧКА -->
-			<a class="content__item" href="#">
-				<img class="content__img" src="imgs/content/businessman.jpg" alt="Бизнесмен">
-				<div class="content__info">
-					<div class="content__inner">
-						<span class="content__topic">ЭКОНОМИКА</span>
-						<h3 class="content__title">Всегда на связи</h3>
-						<p class="content__text">Как управлять бизнесом на расстоянии и избежать проблем</p>
-					</div>
-					<span class="content__date">ДАТА</span>
-				</div>
-			</a>
-			<!-- НОВОСТНАЯ КАРТОЧКА -->
-			<a class="content__item" href="#">
-				<img class="content__img" src="imgs/content/businessman.jpg" alt="Бизнесмен">
-				<div class="content__info">
-					<div class="content__inner">
-						<span class="content__topic">ЭКОНОМИКА</span>
-						<h3 class="content__title">Всегда на связи</h3>
-						<p class="content__text">Как управлять бизнесом на расстоянии и избежать проблем</p>
-					</div>
-					<span class="content__date">ДАТА</span>
-				</div>
-			</a>
-
-		</section>
+		<h2 class="main__title mb-0">Личный кабинет</h2>
+			<?php
+				require_once "php/includes/connect.php";
+				switch($_SESSION["user"]["type"]){
+					case "admin":
+						include_once "php/urls/admin.php";
+						break;
+					case "author":
+						include_once "php/urls/authors.php";
+						break;
+					case "user":
+						include_once "php/urls/subs.php";
+						break;
+				}
+			?>
 	</main>
 
 	<!-- ПОДВАЛ -->
 	<footer class="foo">
 
-		<!-- ТЕКСТ -->
 		<p class="foo-text">
 			<span class="foo-text__item">Пережогин Федор Владимирович</span>
 			<span class="foo-text__item">группа 191-322</span>
@@ -191,6 +158,102 @@
 		</div>
 	</footer>
 
+	<!-- МОДАЛЬНОЕ ОКНО РЕДАКТИРОВАНИЯ И УДАЛЕНИЯ -->
+	<div class="modal fade scrollbar" id="update-data">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item <?php if($_GET["who"] != "articles") echo 'd-none' ?>">
+							<a class="nav-link" data-toggle="tab" href="#page-edit" role="tab">Редактирование</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#page-delete" role="tab" aria-selected="false">Удаление</a>
+						</li>
+					</ul>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body pt-1">
+					<div class="tab-content">
+
+						<!-- ФОРМА РЕДАКТИРОВАНИЯ -->
+						<div class="tab-pane fade" id="page-edit" role="tabpanel">
+							<form action="/php/includes/edit.php/?who=articles" method="POST">
+									<div class="form-group">
+										<label for="del-news" class="col-form-label">Введите ID<span class="text-danger">
+											*</span>
+										</label>
+										<input type="text" class="form-control" id="del-news" placeholder="Введите ID" name="unique_id">
+									</div>
+									<?php
+										$arr = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `articles`"));
+											for($i = 0; $i < count(array_keys($arr)); $i++){
+												if($_GET["who"] == "articles" && $i == 0){
+													continue;
+												}
+												echo "<div class='form-group'><label class='col-form-label'>".array_keys($arr)[$i]."</label>";
+												if ($i != 4)
+													echo "<input type='text' class='form-control' placeholder='Введите данные' name='edit".$i."'></div>";
+												else
+													echo "<textarea class='form-control news-description scrollbar' placeholder='Замените описание' name='edit".$i."'></textarea></div>";
+											}
+										?>
+									<div class="form-check p-0 mb-3">
+										<label class="form-check-label">Подтверждаю свои действия
+											<input class="form-check-input ml-2" type="checkbox" name = "editable">
+										</label>
+									</div>
+									<div class="modal-footer">
+										<button type="submit" class="btn modal__btn modal__btn_upd px-4 py-1">Применить</button>
+									</div>
+								</form>
+						</div>
+
+						<!-- ФОРМА УДАЛЕНИЯ -->
+						<div class="tab-pane fade" id="page-delete" role="tabpanel">
+						<form action = "/php/includes/delete.php/?who=<?=$_GET["who"]?>" method = "POST">
+								<div class="form-group">
+										<label for="disabledSelect">Выберете</label>
+										<select id="disabledSelect" class="form-control" name = "option">
+											<option disabled selected>Выбрать</option>
+											<?php
+												if($_GET["who"] == "authors"){
+													$arr = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `authors`"));
+												}
+												else if($_GET["who"] == "users"){
+													$arr = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `users`"));
+												}
+												else if($_GET["who"] == "articles"){
+													$arr = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `articles`"));
+												}
+												for($i = 0; $i < count(array_keys($arr)); $i++){
+													echo "<option value = '".array_keys($arr)[$i]."'>".array_keys($arr)[$i]."</option>";
+												}
+											?>
+										</select>
+									</div>
+									<div class="form-group">
+										<label for="disabledTextInput">Данные</label>
+										<input type="text" id="disabledTextInput" class="form-control" placeholder="Введите данные" name = "text">
+									</div>
+									<div class="form-check">
+										<label class="form-check-label">Подтверждаю свои действия
+											<input class="form-check-input ml-2" type="checkbox" name = "enabled">
+										</label>
+									</div>
+									<div class="modal-footer">
+										<button type="submit" class="btn modal__btn modal__btn_del px-4 py-1">Удалить</button>
+									</div>
+								</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- МОДАЛЬНОЕ ОКНО -->
 	<div class="modal fade scrollbar" id="modal-window">
 		<div class="modal-dialog">
@@ -213,53 +276,53 @@
 
 						<!-- ФОРМА АВТОРИЗАЦИИ -->
 						<div class="tab-pane fade" id="page-in" role="tabpanel">
-							<form>
+							<form action = "php/auth/signin.php" method = "post">
 								<label for="enter-log" class="col-form-label">E-mail:</label>
-								<input type="text" class="form-control" id="enter-log" placeholder="Введите ваш e-mail">
+								<input type="text" class="form-control" id="enter-log" placeholder="Введите ваш e-mail" name = "email">
 								<label for="enter-pass" class="col-form-label">Пароль:</label>
-								<input type="password" class="form-control" id="enter-pass" placeholder="Введите ваш пароль">
+								<input type="password" class="form-control" id="enter-pass" placeholder="Введите ваш пароль" name = "password">
 								<div class="modal-footer">
 
 									<!-- Выводить если пользователь ошибся -->
 									<p class="d-none">Введите правильный пароль!</p>
 
-									<button type="button" class="btn modal__btn px-4 py-1">Войти</button>
+									<button type="submit" class="btn modal__btn px-4 py-1">Войти</button>
 								</div>
 							</form>
 						</div>
 
 						<!-- ФОРМА РЕГИСТРАЦИИ -->
 						<div class="tab-pane fade" id="page-up" role="tabpanel">
-							<form>
+							<form action = "php/register/signup.php" method = "post">
 								<div class="form-group">
 									<label for="reg-name" class="col-form-label">Введите ваше имя и
 										фамилию:<span class="text-danger"> *</span></label>
-									<input type="text" class="form-control" id="reg-name" placeholder="Введите ваше ФИО">
+									<input type="text" class="form-control" id="reg-name" placeholder="Введите ваше ФИО" name = "name">
 								</div>
 								<div class="form-group">
 									<label for="reg-mail" class="col-form-label">E-mail:<span class="text-danger"> *</span></label>
-									<input type="email" class="form-control" id="reg-mail" placeholder="Введите ваш e-mail">
+									<input type="email" class="form-control" id="reg-mail" placeholder="Введите ваш e-mail" name = "email">
 								</div>
 								<div class="form-group">
 									<label for="reg-pass" class="col-form-label">Пароль:<span class="text-danger"> *</span></label>
-									<input type="password" class="form-control" id="reg-pass" placeholder="Придумайте надежный пароль">
+									<input type="password" class="form-control" id="reg-pass" placeholder="Придумайте надежный пароль" name = "pass1">
 								</div>
 								<div class="form-group">
 									<label for="reg-pass-confirm" class="col-form-label">Повторите ваш
 										пароль:<span class="text-danger"> *</span></label>
-									<input type="password" class="form-control" id="reg-pass-confirm" placeholder="Повторите пароль">
+									<input type="password" class="form-control" id="reg-pass-confirm" placeholder="Повторите пароль" name = "pass2">
 								</div>
 								<div class="form-group">
 									<label for="select-theme" class="col-form-label">Зарегистрироваться как:<span class="text-danger">
 											*</span></label>
-									<select class="custom-select" id="select-theme" required>
+									<select class="custom-select" name="type" id="select-theme" required>
 										<option selected disabled>Выберите роль</option>
-										<option value="1">Пользователь</option>
-										<option value="2">Редактор</option>
+										<option value="user">Пользователь</option>
+										<option value="author">Редактор</option>
 									</select>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn modal__btn">Зарегистрироваться</button>
+									<button type="submit" class="btn modal__btn">Зарегистрироваться</button>
 								</div>
 							</form>
 						</div>
@@ -269,9 +332,9 @@
 		</div>
 	</div>
 
-	<script src="libs/js/jquery-3.5.1.min.js"></script>
-	<script src="libs/js/bootstrap.min.js"></script>
-	<script src="js/main.js"></script>
+	<script src="../libs/js/jquery-3.5.1.min.js"></script>
+	<script src="../libs/js/bootstrap.min.js"></script>
+	<script src="../js/main.js"></script>
 </body>
 
 </html>

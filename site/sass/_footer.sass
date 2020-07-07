@@ -122,7 +122,7 @@
 				border-radius: 0 20px 0 0
 
 	.table
-		thead th
+		th
 			top: 55px
 
 @media (max-width: 920px)
@@ -225,3 +225,17 @@
 			background: map-get($colors, delete)
 		&_upd
 			background: map-get($colors, info)
+
+@media print
+	body
+		background: none
+	.header
+		&__logo a
+			text-decoration: none
+			span
+				color: #000
+	.main, .foo-text, .article__info
+		color: #000
+		background: none
+	.account, .search-wrap, .header__nav, .burger, .foo-list
+		display: none
