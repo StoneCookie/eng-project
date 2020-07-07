@@ -60,7 +60,7 @@
             <div class="content__inner">
               <span class="content__topic">'.mb_strtoupper($rows[$i][12]).'</span>
               <h3 class="content__title">'.$rows[$i][3].'</h3>
-              <p class="content__text">'.str_replace("�", "", mb_substr($rows[$i][4], 0, 50)).'</p>
+              <p class="content__text">'.str_replace("�", "", mb_strimwidth($rows[$i][4], 0, 100, "...")).'</p>
             </div>
             <span class="content__date">'.$rows[$i][5].'</span>
           </div>
