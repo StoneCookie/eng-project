@@ -215,7 +215,7 @@
 								<div class="form-group">
 									<label for="select-theme" class="col-form-label">Зарегистрироваться как:<span class="text-danger">
 											*</span></label>
-									<select class="custom-select" name="type" id="select-theme" required>
+									<select class="custom-select" name="type" id="select-theme">
 										<option selected disabled>Выберите роль</option>
 										<option value="user">Пользователь</option>
 										<option value="author">Редактор</option>
